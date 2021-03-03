@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">GetIconsClientAndroid</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-
+    <string name="hello_blank_fragment2">Hello hello blank fragment</string>
     <string name="icon_sets">Icon Sets</string>
     <string name="icons">Icons</string>
 </resources>
