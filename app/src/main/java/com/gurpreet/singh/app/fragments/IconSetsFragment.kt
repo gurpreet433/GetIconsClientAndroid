@@ -38,7 +38,7 @@ class IconSetsFragment : Fragment() {
                 if(!response.isSuccessful){
                     Log.i("apiresponse", "Failuree " + response.body())
                 }else{
-                    Log.i("apiresponse", "Success " + response.body() + "//end")
+                    Log.i("apiresponse", "Success " + response.body())
                 }
 
             }
