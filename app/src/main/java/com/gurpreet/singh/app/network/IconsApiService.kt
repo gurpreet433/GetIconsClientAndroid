@@ -1,8 +1,10 @@
 package com.gurpreet.singh.app.network
 
 import com.gurpreet.singh.app.data.ServerResponse
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import kotlinx.coroutines.Deferred
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Retrofit
@@ -25,13 +27,14 @@ private val moshi = Moshi.Builder()
 private val retrofit = Retrofit.Builder()
     .addConverterFactory(MoshiConverterFactory.create(moshi))
     .client(client)
+    .addCallAdapterFactory(CoroutineCallAdapterFactory())
     .baseUrl(BASE_URL)
     .build()
 
 interface IconsApiService {
 
     @GET("v4/iconsets")
-    fun getIconSets(@QueryMap params: Map<String, String>): Call<ServerResponse>
+    fun getIconSets(@QueryMap params: Map<String, String>): Deferred<ServerResponse>
 }
 
 object IconsApi {

@@ -4,4 +4,6 @@
     <string name="hello_blank_fragment2">Hello hello blank fragment</string>
     <string name="icon_sets">Icon Sets</string>
     <string name="icons">Icons</string>
+    <string name="sucess">Success</string>
+    <string name="failure">Failure</string>
 </resources>

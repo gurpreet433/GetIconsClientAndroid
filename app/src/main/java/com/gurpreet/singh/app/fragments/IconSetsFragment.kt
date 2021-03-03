@@ -7,16 +7,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModel
 import com.gurpreet.singh.app.R
 import com.gurpreet.singh.app.data.ServerResponse
 import com.gurpreet.singh.app.databinding.FragmentIconSetsBinding
 import com.gurpreet.singh.app.network.IconsApi
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 
 class IconSetsFragment : Fragment() {
+
+    private var viewModelJob = Job()
+    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main )
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,21 +39,20 @@ class IconSetsFragment : Fragment() {
     }
 
     private fun getIconsData(count: String){
-         val map = mapOf("count" to count)
+        val map = mapOf("count" to count)
+        var resultStatus = ""
+        coroutineScope.launch {
 
-        IconsApi.retrofitService.getIconSets(map).enqueue(object: Callback<ServerResponse>{
-            override fun onResponse(call: Call<ServerResponse>, response: Response<ServerResponse>) {
-                if(!response.isSuccessful){
-                    Log.i("apiresponse", "Failuree " + response.body())
-                }else{
-                    Log.i("apiresponse", "Success " + response.body())
-                }
+            var getServerResponseDeferred = IconsApi.retrofitService.getIconSets(map)
 
+            try {
+                var serverResponse = getServerResponseDeferred.await()
+                 resultStatus= "Success" + serverResponse.iconsets
+            }catch (t: Throwable){
+                resultStatus= "Failure" + t.message
             }
 
-            override fun onFailure(call: Call<ServerResponse>, t: Throwable) {
-                Log.i("apiresponse", "Failure " + t.message)
-            }
-        })
+            Log.i("apiresponse", resultStatus + "")
+        }
     }
 }
