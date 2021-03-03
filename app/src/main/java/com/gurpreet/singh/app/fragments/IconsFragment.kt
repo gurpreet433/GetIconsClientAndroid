@@ -7,8 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.gurpreet.singh.app.R
-import com.gurpreet.singh.app.databinding.FragmentIconSetsBinding
-import com.gurpreet.singh.app.databinding.FragmentIconSetsBindingImpl
 import com.gurpreet.singh.app.databinding.FragmentIconsBinding
 
 
