@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.gurpreet.singh.app.R
+import com.gurpreet.singh.app.data.ServerResponse
 import com.gurpreet.singh.app.databinding.FragmentIconSetsBinding
 import com.gurpreet.singh.app.network.IconsApi
 import retrofit2.Call
@@ -32,17 +33,17 @@ class IconSetsFragment : Fragment() {
     private fun getIconsData(count: String){
          val map = mapOf("count" to count)
 
-        IconsApi.retrofitService.getIconSets(map).enqueue(object: Callback<String>{
-            override fun onResponse(call: Call<String>, response: Response<String>) {
+        IconsApi.retrofitService.getIconSets(map).enqueue(object: Callback<ServerResponse>{
+            override fun onResponse(call: Call<ServerResponse>, response: Response<ServerResponse>) {
                 if(!response.isSuccessful){
                     Log.i("apiresponse", "Failuree " + response.body())
                 }else{
-                    Log.i("apiresponse", "Success " + response.body() + " /end")
+                    Log.i("apiresponse", "Success " + response.body() + "//end")
                 }
 
             }
 
-            override fun onFailure(call: Call<String>, t: Throwable) {
+            override fun onFailure(call: Call<ServerResponse>, t: Throwable) {
                 Log.i("apiresponse", "Failure " + t.message)
             }
         })

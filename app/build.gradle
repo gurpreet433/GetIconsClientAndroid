@@ -14,6 +14,9 @@ android {
         versionCode 1
         versionName "1.0"
 
+        // Enabling multidex support.
+        multiDexEnabled true
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -48,8 +51,12 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.3'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.3'
+    implementation 'com.squareup.moshi:moshi:1.11.0'
+    implementation 'com.squareup.moshi:moshi-kotlin:1.11.0'
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation 'com.squareup.retrofit2:converter-scalars:2.9.0'
+
+     implementation 'com.squareup.retrofit2:converter-moshi:2.9.0'
+
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
