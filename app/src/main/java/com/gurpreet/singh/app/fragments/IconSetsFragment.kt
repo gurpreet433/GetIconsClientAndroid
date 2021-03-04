@@ -11,6 +11,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gurpreet.singh.app.R
@@ -38,8 +39,11 @@ class IconSetsFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
 
-        val adapter = IconSetAdapter(IconSetAdapter.IconSetClickListener { iconSetId ->
-            Toast.makeText(context, "${iconSetId}", Toast.LENGTH_SHORT).show()
+        val adapter = IconSetAdapter(IconSetAdapter.IconSetClickListener { iconSet ->
+
+            Toast.makeText(context, "${iconSet}", Toast.LENGTH_SHORT).show()
+            findNavController().navigate(IconSetsFragmentDirections
+                .actionIconSetsFragmentToIconSetDetailsFragment(iconSet))
         })
 
 

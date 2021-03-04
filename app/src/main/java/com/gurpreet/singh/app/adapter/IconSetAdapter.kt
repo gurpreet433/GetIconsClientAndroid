@@ -7,7 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.gurpreet.singh.app.data.Iconset
 import com.gurpreet.singh.app.databinding.ItemSetSingleItemBinding
 
-class IconSetAdapter(val clickListener: IconSetClickListener): androidx.recyclerview.widget.ListAdapter<Iconset, IconSetAdapter.ViewHolder>(IconSetDiffCallback()) {
+class IconSetAdapter(val clickListener: IconSetClickListener) :
+    androidx.recyclerview.widget.ListAdapter<Iconset, IconSetAdapter.ViewHolder>(IconSetDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.from(parent)
@@ -18,7 +19,8 @@ class IconSetAdapter(val clickListener: IconSetClickListener): androidx.recycler
         holder.bind(getItem(position)!!, clickListener)
     }
 
-    class ViewHolder private constructor(val binding: ItemSetSingleItemBinding): RecyclerView.ViewHolder(binding.root){
+    class ViewHolder private constructor(val binding: ItemSetSingleItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Iconset, clickListener: IconSetClickListener) {
             binding.iconSet = item
@@ -35,7 +37,7 @@ class IconSetAdapter(val clickListener: IconSetClickListener): androidx.recycler
         }
     }
 
-    class IconSetDiffCallback : DiffUtil.ItemCallback<Iconset>(){
+    class IconSetDiffCallback : DiffUtil.ItemCallback<Iconset>() {
         override fun areItemsTheSame(oldItem: Iconset, newItem: Iconset): Boolean {
             return oldItem.iconsetID == newItem.iconsetID
         }
@@ -45,7 +47,10 @@ class IconSetAdapter(val clickListener: IconSetClickListener): androidx.recycler
         }
     }
 
-        class IconSetClickListener(val clickListener: (iconSetId: Long) -> Unit){
-        fun onClick(iconset: Iconset) = iconset.iconsetID?.let { clickListener(it) }
+    class IconSetClickListener(val clickListener: (iconSet: Iconset) -> Unit) {
+        fun onClick(iconset: Iconset) =
+            iconset.iconsCount?.let {
+                clickListener(iconset)
+            }
     }
 }

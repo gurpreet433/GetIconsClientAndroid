@@ -9,9 +9,26 @@
     <fragment
         android:id="@+id/iconSetsFragment"
         android:name="com.gurpreet.singh.app.fragments.IconSetsFragment"
-        android:label="IconSetsFragment" />
+        android:label="IconSetsFragment" >
+        <action
+            android:id="@+id/action_iconSetsFragment_to_iconSetDetailsFragment"
+            app:destination="@id/iconSetDetailsFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_close_enter"
+            app:popExitAnim="@anim/fragment_close_exit" />
+    </fragment>
     <fragment
         android:id="@+id/iconsFragment"
         android:name="com.gurpreet.singh.app.fragments.IconsFragment"
         android:label="IconsFragment" />
+    <fragment
+        android:id="@+id/iconSetDetailsFragment"
+        android:name="com.gurpreet.singh.app.fragments.IconSetDetailsFragment"
+        android:label="IconSetDetailsFragment" >
+
+        <argument
+            android:name="iconSet"
+            app:argType="com.gurpreet.singh.app.data.Iconset" />
+    </fragment>
 </navigation>
