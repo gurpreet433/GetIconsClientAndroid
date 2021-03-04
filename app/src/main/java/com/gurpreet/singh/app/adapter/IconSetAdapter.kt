@@ -21,11 +21,10 @@ class IconSetAdapter: androidx.recyclerview.widget.ListAdapter<Iconset, IconSetA
     class ViewHolder private constructor(val binding: ItemSetSingleItemBinding): RecyclerView.ViewHolder(binding.root){
 
         fun bind(item: Iconset) {
-            binding.name.text = item.name
-            binding.type.text = item.type
-            binding.price.text = item.prices[0].price.toString()
-            binding.authersName.text = item.author.name
-            binding.licenceName.text = item.prices[0].license.name
+            binding.iconSet = item
+            binding.executePendingBindings()
+
+
         }
 
         companion object {
