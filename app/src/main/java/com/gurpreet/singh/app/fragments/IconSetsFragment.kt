@@ -47,7 +47,7 @@ class IconSetsFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(IconSetsViewModel::class.java)
 
         viewModel.iconSetList.observe(viewLifecycleOwner, Observer {
-            adapter.data = it
+            adapter.submitList(it)
         })
 
         return binding.root
