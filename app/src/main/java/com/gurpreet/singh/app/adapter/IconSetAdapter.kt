@@ -20,9 +20,7 @@ class IconSetAdapter : RecyclerView.Adapter<IconSetAdapter.ViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val layoutInflater = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.item_set_single_item, parent, false)
-        return ViewHolder(layoutInflater)
+        return ViewHolder.from(parent)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -31,7 +29,7 @@ class IconSetAdapter : RecyclerView.Adapter<IconSetAdapter.ViewHolder>() {
     }
 
 
-    class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+    class ViewHolder private constructor(itemView: View): RecyclerView.ViewHolder(itemView){
         val name: TextView = itemView.findViewById(R.id.name)
         val type: TextView = itemView.findViewById(R.id.type)
         val price: TextView = itemView.findViewById(R.id.price)
@@ -45,5 +43,15 @@ class IconSetAdapter : RecyclerView.Adapter<IconSetAdapter.ViewHolder>() {
             authersName.text = item.author.name
             licenceName.text = item.prices[0].license.name
         }
+
+        companion object {
+            fun from(parent: ViewGroup): ViewHolder {
+                val layoutInflater = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.item_set_single_item, parent, false)
+                return ViewHolder(layoutInflater)
+            }
+        }
     }
+
+
 }
