@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 class IconSetsViewModel : ViewModel() {
     var isLoading = true
     var lastId : String = ""
-    val itemPerPage: String = "5"
+    val itemPerPage: String = "20"
 
     private var viewModelJob = Job()
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)

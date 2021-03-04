@@ -28,9 +28,9 @@ fun ImageView.setPremiumOrFreeBadge(item: Iconset?) {
     item?.let {
         setImageResource(
             when (item.isPremium) {
-                true -> R.drawable.ic_launcher_background
-                false -> R.drawable.ic_launcher_foreground
-                else -> R.drawable.ic_launcher_foreground
+                true -> R.drawable.premium
+                false -> R.drawable.free
+                else -> R.drawable.free
             })
     }
 }
