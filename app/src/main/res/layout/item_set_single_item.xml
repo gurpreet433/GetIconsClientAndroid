@@ -7,11 +7,16 @@
         <variable
             name="iconSet"
             type="com.gurpreet.singh.app.data.Iconset" />
+
+        <variable
+            name="clickListener"
+            type="com.gurpreet.singh.app.adapter.IconSetAdapter.IconSetClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:onClick="@{()->clickListener.onClick(iconSet)}">
 
         <TextView
             android:id="@+id/name"

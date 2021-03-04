@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.gurpreet.singh.app.data.Iconset
 import com.gurpreet.singh.app.databinding.ItemSetSingleItemBinding
 
-class IconSetAdapter: androidx.recyclerview.widget.ListAdapter<Iconset, IconSetAdapter.ViewHolder>(IconSetDiffCallback()) {
+class IconSetAdapter(val clickListener: IconSetClickListener): androidx.recyclerview.widget.ListAdapter<Iconset, IconSetAdapter.ViewHolder>(IconSetDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.from(parent)
@@ -15,16 +15,15 @@ class IconSetAdapter: androidx.recyclerview.widget.ListAdapter<Iconset, IconSetA
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
-        holder.bind(item)
+        holder.bind(getItem(position)!!, clickListener)
     }
 
     class ViewHolder private constructor(val binding: ItemSetSingleItemBinding): RecyclerView.ViewHolder(binding.root){
 
-        fun bind(item: Iconset) {
+        fun bind(item: Iconset, clickListener: IconSetClickListener) {
             binding.iconSet = item
             binding.executePendingBindings()
-
-
+            binding.clickListener = clickListener
         }
 
         companion object {
@@ -44,5 +43,9 @@ class IconSetAdapter: androidx.recyclerview.widget.ListAdapter<Iconset, IconSetA
         override fun areContentsTheSame(oldItem: Iconset, newItem: Iconset): Boolean {
             return oldItem == newItem
         }
+    }
+
+        class IconSetClickListener(val clickListener: (iconSetId: Long) -> Unit){
+        fun onClick(iconset: Iconset) = clickListener(iconset.iconsetID)
     }
 }

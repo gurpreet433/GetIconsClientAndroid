@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
@@ -36,7 +37,9 @@ class IconSetsFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
 
-        val adapter = IconSetAdapter()
+        val adapter = IconSetAdapter(IconSetAdapter.IconSetClickListener {
+            iconSetId -> Toast.makeText(context, "${iconSetId}", Toast.LENGTH_SHORT).show()
+        })
 
 
         val binding: FragmentIconSetsBinding
