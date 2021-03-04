@@ -1,6 +1,7 @@
 package com.gurpreet.singh.app.adapter
 
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.gurpreet.singh.app.R
@@ -31,3 +32,4 @@ fun ImageView.setPremiumOrFreeBadge(item: Iconset?) {
             })
     }
 }
+

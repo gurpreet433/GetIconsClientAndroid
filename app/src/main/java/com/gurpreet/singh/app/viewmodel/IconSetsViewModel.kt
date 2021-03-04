@@ -11,17 +11,24 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 class IconSetsViewModel : ViewModel() {
+    var isLoading = true
+    var lastId = ""
+    val itemPerPage: String = "20"
+
     private var viewModelJob = Job()
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
-    var iconSetList = MutableLiveData <List<Iconset>>()
+    var iconSetList = MutableLiveData<List<Iconset>>()
 
     init {
-        getIconsData("2")
+        getIconsData( itemPerPage, lastId)
     }
 
-    private fun getIconsData(count: String){
-        val map = mapOf("count" to count)
+    fun getIconsData(count: String, afterId: String) {
+        val map = mapOf(
+            "count" to count,
+            "after" to afterId
+        )
         var resultStatus = ""
         coroutineScope.launch {
 
@@ -29,13 +36,30 @@ class IconSetsViewModel : ViewModel() {
 
             try {
                 var serverResponse = getServerResponseDeferred.await()
-                iconSetList.value = serverResponse.iconsets
+
+                lastId = serverResponse.iconsets.get(serverResponse.iconsets.lastIndex).iconsetID.toString()
+
+                var oldList: List<Iconset>? = iconSetList.value
+                var newList: List<Iconset>? = serverResponse.iconsets
+                iconSetList.value = concatenate(oldList, newList)
                 resultStatus = "Success" + serverResponse.iconsets
-            }catch (t: Throwable){
-                resultStatus= "Failure" + t.message
+            } catch (t: Throwable) {
+                resultStatus = "Failure" + t.message
             }
 
             Log.i("apiresponse", resultStatus + "")
         }
+
+
+    }
+
+    fun concatenate(vararg lists: List<Iconset>?): List<Iconset>? {
+        val result: MutableList<Iconset>? = ArrayList()
+        for (list in lists) {
+            if (list != null) {
+                result!!.addAll(list)
+            }
+        }
+        return result
     }
 }

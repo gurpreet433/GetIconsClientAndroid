@@ -11,6 +11,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.gurpreet.singh.app.R
 import com.gurpreet.singh.app.adapter.IconSetAdapter
 import com.gurpreet.singh.app.data.ServerResponse
@@ -27,7 +29,6 @@ import retrofit2.Response
 
 
 class IconSetsFragment : Fragment() {
-
     private lateinit var viewModel: IconSetsViewModel
 
 
@@ -37,13 +38,13 @@ class IconSetsFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
 
-        val adapter = IconSetAdapter(IconSetAdapter.IconSetClickListener {
-            iconSetId -> Toast.makeText(context, "${iconSetId}", Toast.LENGTH_SHORT).show()
+        val adapter = IconSetAdapter(IconSetAdapter.IconSetClickListener { iconSetId ->
+            Toast.makeText(context, "${iconSetId}", Toast.LENGTH_SHORT).show()
         })
 
 
-        val binding: FragmentIconSetsBinding
-            = DataBindingUtil.inflate(inflater, R.layout.fragment_icon_sets, container, false)
+        val binding: FragmentIconSetsBinding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_icon_sets, container, false)
 
         binding.iconSetsRecyclerView.adapter = adapter
 
@@ -51,6 +52,32 @@ class IconSetsFragment : Fragment() {
 
         viewModel.iconSetList.observe(viewLifecycleOwner, Observer {
             adapter.submitList(it)
+            viewModel.isLoading = false
+            binding.progressBar.visibility = View.GONE
+        })
+
+        binding.iconSetsRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+            }
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                if (dy > 0) {
+                    var visibleItemCount = recyclerView.getLayoutManager()!!.getChildCount()
+                    var totalItemCount = recyclerView.getLayoutManager()!!.getItemCount()
+                    var pastVisiblesItems =
+                        (recyclerView.getLayoutManager() as LinearLayoutManager).findFirstVisibleItemPosition()
+
+                    if (visibleItemCount + pastVisiblesItems >= totalItemCount && !viewModel.isLoading) {
+                        viewModel.isLoading = true
+                        binding.progressBar.visibility = View.VISIBLE
+                        // mocking network delay for API call
+
+                        viewModel.getIconsData(viewModel.itemPerPage, viewModel.lastId)
+                    }
+                }
+            }
         })
 
         return binding.root
