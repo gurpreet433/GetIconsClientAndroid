@@ -6,7 +6,7 @@ data class License (
     val scope: String,
 
     @Json(name = "license_id")
-    val licenseID: Long,
-    val name: String,
-    val url: String
+    val licenseID: Long?,
+    val name: String?,
+    val url: String?
 )

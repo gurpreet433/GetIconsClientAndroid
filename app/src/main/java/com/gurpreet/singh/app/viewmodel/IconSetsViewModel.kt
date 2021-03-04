@@ -1,6 +1,7 @@
 package com.gurpreet.singh.app.viewmodel
 
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.gurpreet.singh.app.data.Iconset
@@ -12,8 +13,8 @@ import kotlinx.coroutines.launch
 
 class IconSetsViewModel : ViewModel() {
     var isLoading = true
-    var lastId = ""
-    val itemPerPage: String = "20"
+    var lastId : String = ""
+    val itemPerPage: String = "5"
 
     private var viewModelJob = Job()
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
@@ -21,7 +22,7 @@ class IconSetsViewModel : ViewModel() {
     var iconSetList = MutableLiveData<List<Iconset>>()
 
     init {
-        getIconsData( itemPerPage, lastId)
+        getIconsData( itemPerPage, "")
     }
 
     fun getIconsData(count: String, afterId: String) {
@@ -37,7 +38,7 @@ class IconSetsViewModel : ViewModel() {
             try {
                 var serverResponse = getServerResponseDeferred.await()
 
-                lastId = serverResponse.iconsets.get(serverResponse.iconsets.lastIndex).iconsetID.toString()
+                lastId = serverResponse.iconsets?.get(serverResponse.iconsets!!.lastIndex)?.iconsetID.toString()
 
                 var oldList: List<Iconset>? = iconSetList.value
                 var newList: List<Iconset>? = serverResponse.iconsets
@@ -57,7 +58,7 @@ class IconSetsViewModel : ViewModel() {
         val result: MutableList<Iconset>? = ArrayList()
         for (list in lists) {
             if (list != null) {
-                result!!.addAll(list)
+                result?.addAll(list)
             }
         }
         return result

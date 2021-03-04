@@ -4,7 +4,7 @@ import com.squareup.moshi.Json
 
 data class ServerResponse (
     @Json(name = "total_count")
-    val totalCount: Long,
+    val totalCount: Long?,
 
-    val iconsets: List<Iconset>
+    val iconsets: List<Iconset>?
 )

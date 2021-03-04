@@ -46,6 +46,6 @@ class IconSetAdapter(val clickListener: IconSetClickListener): androidx.recycler
     }
 
         class IconSetClickListener(val clickListener: (iconSetId: Long) -> Unit){
-        fun onClick(iconset: Iconset) = clickListener(iconset.iconsetID)
+        fun onClick(iconset: Iconset) = iconset.iconsetID?.let { clickListener(it) }
     }
 }

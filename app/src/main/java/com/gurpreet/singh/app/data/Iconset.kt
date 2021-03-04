@@ -4,27 +4,27 @@ import com.squareup.moshi.Json
 
 data class Iconset (
     @Json(name = "are_all_icons_glyph")
-    val areAllIconsGlyph: Boolean,
+    val areAllIconsGlyph: Boolean?,
 
-    val author: Author,
-    val styles: List<Any?>,
-    val name: String,
-    val prices: List<Price>,
+    val author: Author?,
+    val styles: List<Any?>?,
+    val name: String?,
+    val prices: List<Price>?,
 
     @Json(name = "iconset_id")
-    val iconsetID: Long,
+    val iconsetID: Long?,
 
     @Json(name = "icons_count")
-    val iconsCount: Long,
+    val iconsCount: Long?,
 
-    val identifier: String,
+    val identifier: String?,
 
     @Json(name = "published_at")
-    val publishedAt: String,
+    val publishedAt: String?,
 
     @Json(name = "is_premium")
-    val isPremium: Boolean,
+    val isPremium: Boolean?,
 
-    val categories: List<Any?>,
-    val type: String
+    val categories: List<Any?>?,
+    val type: String?
 )

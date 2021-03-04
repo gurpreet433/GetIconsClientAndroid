@@ -11,14 +11,15 @@ import com.gurpreet.singh.app.data.Iconset
 @BindingAdapter("priceFormatted")
 fun TextView.setPriceFormatted(item: Iconset?) {
     item?.let {
-        text = item.prices[0].price.toString()
+        text = item.prices?.get(0)?.price.toString()
     }
 }
 
 @BindingAdapter("licenceNameFormatted")
 fun TextView.setLicenceNameFormatted(item: Iconset?) {
+
     item?.let {
-        text = item.prices[0].license.name
+        text = item.prices?.get(0)?.license?.name ?: "N/A"
     }
 }
 
@@ -29,6 +30,7 @@ fun ImageView.setPremiumOrFreeBadge(item: Iconset?) {
             when (item.isPremium) {
                 true -> R.drawable.ic_launcher_background
                 false -> R.drawable.ic_launcher_foreground
+                else -> R.drawable.ic_launcher_foreground
             })
     }
 }

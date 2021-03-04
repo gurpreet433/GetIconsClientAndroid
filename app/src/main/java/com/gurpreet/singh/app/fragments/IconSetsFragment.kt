@@ -57,24 +57,20 @@ class IconSetsFragment : Fragment() {
         })
 
         binding.iconSetsRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
-            }
-
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 if (dy > 0) {
-                    var visibleItemCount = recyclerView.getLayoutManager()!!.getChildCount()
-                    var totalItemCount = recyclerView.getLayoutManager()!!.getItemCount()
+                    var visibleItemCount = recyclerView.getLayoutManager()?.getChildCount()
+                    var totalItemCount = recyclerView.getLayoutManager()?.getItemCount() ?: 0
                     var pastVisiblesItems =
                         (recyclerView.getLayoutManager() as LinearLayoutManager).findFirstVisibleItemPosition()
 
-                    if (visibleItemCount + pastVisiblesItems >= totalItemCount && !viewModel.isLoading) {
-                        viewModel.isLoading = true
-                        binding.progressBar.visibility = View.VISIBLE
-                        // mocking network delay for API call
+                    if (visibleItemCount != null) {
+                        if (visibleItemCount + pastVisiblesItems >= totalItemCount && !viewModel.isLoading) {
+                            viewModel.isLoading = true
+                            binding.progressBar.visibility = View.VISIBLE
 
-                        viewModel.getIconsData(viewModel.itemPerPage, viewModel.lastId)
+                            viewModel.getIconsData(viewModel.itemPerPage, viewModel.lastId)
+                        }
                     }
                 }
             }
