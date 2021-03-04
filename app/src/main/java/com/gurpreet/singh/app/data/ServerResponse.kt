@@ -42,12 +42,9 @@ data class Author (
 
     @Json(name = "iconsets_count")
     val iconsetsCount: Long,
-
     @Json(name = "is_designer")
     val isDesigner: Boolean,
-
     val company: String? = null,
-
     @Json(name = "user_id")
     val userID: Long
 )
@@ -63,7 +60,6 @@ data class License (
 
     @Json(name = "license_id")
     val licenseID: Long,
-
     val name: String,
     val url: String
 )
