@@ -24,10 +24,10 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_medium"
             android:layout_marginTop="@dimen/margin_medium"
+            android:text="@{iconSet.name}"
             android:textSize="22sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:text="@{iconSet.name}"
             tools:text="Name" />
 
 
@@ -37,12 +37,25 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_medium"
             android:layout_marginTop="@dimen/margin_medium"
-            android:textSize="20sp"
             android:text="@{iconSet.type}"
+            android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/name"
             tools:text="Type" />
 
+
+        <ImageView
+            android:id="@+id/is_premium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_medium"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/type"
+            tools:src="@drawable/abc_vector_test"
+            app:premiumOrFreeBadge="@{iconSet}"
+            tools:text="Type" />
 
         <TextView
             android:id="@+id/price"
@@ -62,8 +75,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_medium"
             android:layout_marginRight="@dimen/margin_medium"
-            android:textSize="22sp"
             android:text="@{iconSet.author.name}"
+            android:textSize="22sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/price"
             tools:text="Author's Name" />
@@ -74,12 +87,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_medium"
-            android:layout_marginBottom="@dimen/margin_medium"
             android:layout_marginRight="@dimen/margin_medium"
+            android:layout_marginBottom="@dimen/margin_medium"
             android:textSize="20sp"
-            app:licenceNameFormatted="@{iconSet}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/authers_name"
+            app:licenceNameFormatted="@{iconSet}"
             tools:text="Licence Name" />
 
 
